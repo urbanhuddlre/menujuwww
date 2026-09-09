@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TUH WWW</title>
     
+    <!-- Firebase SDK (v8 Compatibility Mode) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
     <style>
         @font-face {
             font-family: 'Hillios';
@@ -171,6 +175,7 @@
             color: var(--accent-color);
             background: white;
             box-shadow: 0 4px 10px rgba(233, 85, 0, 0.2);
+            pointer-events: none;
         }
 
         .heart-key.active-press {
@@ -189,7 +194,7 @@
             background: var(--accent-color);
             border-radius: 50%;
             box-shadow: 0 0 10px rgba(233, 85, 0, 0.5);
-            animation: fall 1.5s linear forwards;
+            animation: fall 1.2s linear forwards;
         }
 
         @keyframes fall {
@@ -285,10 +290,10 @@
         <div id="judgment-text">PERFECT</div>
 
         <div class="track-container">
-            <div class="lane" onclick="hitLane(0)"><div class="heart-key">♥</div></div>
-            <div class="lane" onclick="hitLane(1)"><div class="heart-key">♥</div></div>
-            <div class="lane" onclick="hitLane(2)"><div class="heart-key">♥</div></div>
-            <div class="lane" onclick="hitLane(3)"><div class="heart-key">♥</div></div>
+            <div class="lane" data-lane="0"><div class="heart-key">♥</div></div>
+            <div class="lane" data-lane="1"><div class="heart-key">♥</div></div>
+            <div class="lane" data-lane="2"><div class="heart-key">♥</div></div>
+            <div class="lane" data-lane="3"><div class="heart-key">♥</div></div>
         </div>
     </div>
 
@@ -324,7 +329,9 @@
 </div>
 
 <script>
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// ==========================================
+// 1. INISIALISASI FIREBASE
+// ==========================================
 const firebaseConfig = {
   apiKey: "AIzaSyDUsMS5tfT9D1uPB3goNOV8B7h0GxIXKTE",
   authDomain: "tuh-34252.firebaseapp.com",
@@ -335,9 +342,17 @@ const firebaseConfig = {
   appId: "1:617954231350:web:f1680856f37dc8e87cc497",
   measurementId: "G-MNE05FGWNB"
 };
-    
+
+let isFirebaseReady = false;
+try {
+    firebase.initializeApp(firebaseConfig);
+    isFirebaseReady = true;
+} catch(e) {
+    console.error("Gagal menginisialisasi Firebase:", e);
+}
+
 // ==========================================
-// 2. VARIABEL GLOBAL GAME
+// 2. VARIABEL GLOBAL GAME & BEATMAP
 // ==========================================
 let score = 0;
 let combo = 0;
@@ -348,215 +363,52 @@ let goodCount = 0;
 let missCount = 0;
 
 const bgm = document.getElementById('bgm');
+
+// Beatmap diperkerat (kecepatan jatuh/durasi dinaikkan & kerapatan dipadatkan)
 let beatmap = [
-  // --- Intro / Verse 1 (00:00 - 00:15) ---
-  { time: 1.000, lane: 0 },
-  { time: 1.469, lane: 1 },
-  { time: 1.938, lane: 2 },
-  { time: 2.406, lane: 3 },
-  { time: 2.875, lane: 2 },
-  { time: 3.344, lane: 1 },
-  { time: 3.812, lane: 0 },
-  { time: 4.281, lane: 2 },
+  // --- Intro Fast Beat ---
+  { time: 1.000, lane: 0 }, { time: 1.300, lane: 1 }, { time: 1.600, lane: 2 }, { time: 1.900, lane: 3 },
+  { time: 2.200, lane: 2 }, { time: 2.500, lane: 1 }, { time: 2.800, lane: 0 }, { time: 3.100, lane: 3 },
+  { time: 3.400, lane: 1 }, { time: 3.700, lane: 2 }, { time: 4.000, lane: 0 }, { time: 4.000, lane: 3 }, // Double
+  { time: 4.400, lane: 1 }, { time: 4.700, lane: 2 }, { time: 5.000, lane: 0 }, { time: 5.300, lane: 3 },
+  { time: 5.600, lane: 1 }, { time: 5.900, lane: 2 }, { time: 6.200, lane: 0 }, { time: 6.500, lane: 3 },
+  { time: 6.800, lane: 1 }, { time: 7.100, lane: 2 }, { time: 7.400, lane: 0 }, { time: 7.400, lane: 3 }, // Double
+  
+  // --- Verse Intense ---
+  { time: 8.000, lane: 0 }, { time: 8.250, lane: 1 }, { time: 8.500, lane: 2 }, { time: 8.750, lane: 3 },
+  { time: 9.000, lane: 2 }, { time: 9.250, lane: 1 }, { time: 9.500, lane: 0 }, { time: 9.750, lane: 2 },
+  { time: 10.000, lane: 1 }, { time: 10.250, lane: 3 }, { time: 10.500, lane: 0 }, { time: 10.750, lane: 2 },
+  { time: 11.000, lane: 1 }, { time: 11.250, lane: 2 }, { time: 11.500, lane: 0 }, { time: 11.500, lane: 3 }, // Double
+  { time: 12.000, lane: 2 }, { time: 12.250, lane: 1 }, { time: 12.500, lane: 3 }, { time: 12.750, lane: 0 },
+  { time: 13.000, lane: 1 }, { time: 13.250, lane: 2 }, { time: 13.500, lane: 0 }, { time: 13.750, lane: 3 },
+  { time: 14.000, lane: 1 }, { time: 14.250, lane: 2 }, { time: 14.500, lane: 0 }, { time: 14.800, lane: 3 },
 
-  { time: 4.750, lane: 0 },
-  { time: 5.219, lane: 3 },
-  { time: 5.688, lane: 2 },
-  { time: 6.156, lane: 1 },
-  { time: 6.625, lane: 0 },
-  { time: 7.094, lane: 2 },
-  { time: 7.562, lane: 3 },
-  { time: 8.031, lane: 1 },
+  // --- Chorus Part 1 ---
+  { time: 15.200, lane: 0 }, { time: 15.450, lane: 1 }, { time: 15.700, lane: 2 }, { time: 15.950, lane: 3 },
+  { time: 16.200, lane: 1 }, { time: 16.450, lane: 2 }, { time: 16.700, lane: 0 }, { time: 16.950, lane: 3 },
+  { time: 17.200, lane: 1 }, { time: 17.450, lane: 0 }, { time: 17.700, lane: 2 }, { time: 17.950, lane: 3 },
+  { time: 18.200, lane: 0 }, { time: 18.200, lane: 3 }, // Double
+  { time: 18.600, lane: 1 }, { time: 18.850, lane: 2 }, { time: 19.100, lane: 0 }, { time: 19.350, lane: 3 },
+  { time: 19.600, lane: 1 }, { time: 19.850, lane: 2 }, { time: 20.100, lane: 0 }, { time: 20.350, lane: 3 },
+  { time: 20.600, lane: 1 }, { time: 20.850, lane: 2 }, { time: 21.100, lane: 0 }, { time: 21.100, lane: 2 }, // Double
 
-  { time: 8.500, lane: 3 },
-  { time: 8.969, lane: 2 },
-  { time: 9.438, lane: 1 },
-  { time: 9.906, lane: 0 },
-  { time: 10.375, lane: 1 },
-  { time: 10.844, lane: 2 },
-  { time: 11.312, lane: 3 },
-  { time: 11.781, lane: 0 },
+  // --- Chorus Part 2 ---
+  { time: 21.600, lane: 1 }, { time: 21.850, lane: 3 }, { time: 22.100, lane: 0 }, { time: 22.350, lane: 2 },
+  { time: 22.600, lane: 1 }, { time: 22.850, lane: 3 }, { time: 23.100, lane: 0 }, { time: 23.350, lane: 2 },
+  { time: 23.600, lane: 1 }, { time: 23.850, lane: 0 }, { time: 24.100, lane: 2 }, { time: 24.350, lane: 3 },
+  { time: 24.600, lane: 0 }, { time: 24.600, lane: 3 }, // Double
+  { time: 25.000, lane: 1 }, { time: 25.250, lane: 2 }, { time: 25.500, lane: 0 }, { time: 25.750, lane: 3 },
+  { time: 26.000, lane: 1 }, { time: 26.250, lane: 2 }, { time: 26.500, lane: 0 }, { time: 26.750, lane: 3 },
 
-  { time: 12.250, lane: 3 },
-  { time: 12.719, lane: 0 },
-  { time: 13.188, lane: 1 },
-  { time: 13.656, lane: 2 },
-  { time: 14.125, lane: 3 },
-  { time: 14.594, lane: 1 },
-  { time: 15.062, lane: 2 },
-  { time: 15.531, lane: 0 },
-
-  // --- Chorus / Reff Part 1 (00:16 - 00:30) ---
-  { time: 16.469, lane: 0 },
-  { time: 16.703, lane: 1 },
-  { time: 16.938, lane: 2 },
-  { time: 17.172, lane: 3 },
-  { time: 17.406, lane: 2 },
-  { time: 17.875, lane: 1 },
-  { time: 18.109, lane: 0 },
-  { time: 18.344, lane: 2 },
-  { time: 18.578, lane: 3 },
-  { time: 18.812, lane: 1 },
-
-  { time: 19.281, lane: 0 },
-  { time: 19.516, lane: 2 },
-  { time: 19.750, lane: 1 },
-  { time: 20.219, lane: 3 },
-  { time: 20.453, lane: 0 },
-  { time: 20.688, lane: 2 },
-  { time: 21.156, lane: 1 },
-  { time: 21.391, lane: 3 },
-  { time: 21.625, lane: 0 },
-
-  { time: 22.094, lane: 0 },
-  { time: 22.328, lane: 1 },
-  { time: 22.562, lane: 2 },
-  { time: 22.797, lane: 3 },
-  { time: 23.031, lane: 0 },
-  { time: 23.031, lane: 3 }, // Double
-  { time: 23.500, lane: 1 },
-  { time: 23.969, lane: 2 },
-
-  { time: 24.203, lane: 0 },
-  { time: 24.438, lane: 3 },
-  { time: 24.672, lane: 1 },
-  { time: 24.906, lane: 2 },
-  { time: 25.375, lane: 0 },
-  { time: 25.844, lane: 3 },
-  { time: 26.078, lane: 1 },
-  { time: 26.312, lane: 2 },
-  { time: 26.547, lane: 0 },
-  { time: 26.781, lane: 3 },
-
-  { time: 27.250, lane: 1 },
-  { time: 27.484, lane: 2 },
-  { time: 27.719, lane: 0 },
-  { time: 28.188, lane: 3 },
-  { time: 28.422, lane: 1 },
-  { time: 28.656, lane: 2 },
-  { time: 28.891, lane: 0 },
-  { time: 29.125, lane: 3 },
-
-  { time: 29.594, lane: 0 },
-  { time: 29.828, lane: 1 },
-  { time: 30.062, lane: 2 },
-  { time: 30.297, lane: 3 },
-  { time: 30.531, lane: 0 },
-  { time: 30.531, lane: 3 }, // Double
-
-  // --- Chorus / Reff Part 2 (00:31 - 00:45) ---
-  { time: 31.000, lane: 1 },
-  { time: 31.234, lane: 2 },
-  { time: 31.469, lane: 0 },
-  { time: 31.938, lane: 3 },
-  { time: 32.172, lane: 1 },
-  { time: 32.406, lane: 2 },
-  { time: 32.875, lane: 0 },
-
-  { time: 33.344, lane: 3 },
-  { time: 33.578, lane: 1 },
-  { time: 33.812, lane: 2 },
-  { time: 34.047, lane: 0 },
-  { time: 34.281, lane: 3 },
-  { time: 34.750, lane: 1 },
-  { time: 35.219, lane: 2 },
-  { time: 35.453, lane: 0 },
-  { time: 35.688, lane: 3 },
-
-  { time: 36.156, lane: 1 },
-  { time: 36.391, lane: 2 },
-  { time: 36.625, lane: 0 },
-  { time: 36.859, lane: 3 },
-  { time: 37.094, lane: 1 },
-  { time: 37.562, lane: 2 },
-  { time: 38.031, lane: 0 },
-  { time: 38.266, lane: 3 },
-  { time: 38.500, lane: 1 },
-
-  { time: 38.969, lane: 2 },
-  { time: 39.203, lane: 0 },
-  { time: 39.438, lane: 3 },
-  { time: 39.672, lane: 1 },
-  { time: 39.906, lane: 2 },
-  { time: 40.375, lane: 0 },
-  { time: 40.844, lane: 3 },
-
-  { time: 41.312, lane: 1 },
-  { time: 41.547, lane: 2 },
-  { time: 41.781, lane: 0 },
-  { time: 42.016, lane: 3 },
-  { time: 42.250, lane: 1 },
-  { time: 42.719, lane: 2 },
-  { time: 43.188, lane: 0 },
-  { time: 43.656, lane: 3 },
-  { time: 44.125, lane: 1 },
-  { time: 44.594, lane: 2 },
-
-  // --- Outro / Climax Padat (00:46 - 01:00) ---
-  { time: 45.062, lane: 0 },
-  { time: 45.297, lane: 1 },
-  { time: 45.531, lane: 2 },
-  { time: 45.766, lane: 3 },
-  { time: 46.000, lane: 2 },
-  { time: 46.234, lane: 1 },
-  { time: 46.469, lane: 0 },
-  { time: 46.703, lane: 3 },
-
-  { time: 47.172, lane: 1 },
-  { time: 47.406, lane: 2 },
-  { time: 47.641, lane: 0 },
-  { time: 47.875, lane: 3 },
-  { time: 48.109, lane: 1 },
-  { time: 48.344, lane: 2 },
-  { time: 48.812, lane: 0 },
-  { time: 49.281, lane: 3 },
-
-  { time: 49.750, lane: 1 },
-  { time: 49.984, lane: 2 },
-  { time: 50.219, lane: 0 },
-  { time: 50.453, lane: 3 },
-  { time: 50.688, lane: 1 },
-  { time: 51.156, lane: 2 },
-  { time: 51.625, lane: 0 },
-  { time: 52.094, lane: 3 },
-
-  { time: 52.562, lane: 1 },
-  { time: 52.797, lane: 2 },
-  { time: 53.031, lane: 0 },
-  { time: 53.266, lane: 3 },
-  { time: 53.500, lane: 1 },
-  { time: 53.734, lane: 2 },
-  { time: 53.969, lane: 0 },
-  { time: 54.438, lane: 3 },
-
-  { time: 54.906, lane: 1 },
-  { time: 55.141, lane: 2 },
-  { time: 55.375, lane: 0 },
-  { time: 55.609, lane: 3 },
-  { time: 55.844, lane: 1 },
-  { time: 56.078, lane: 2 },
-  { time: 56.312, lane: 0 },
-  { time: 56.547, lane: 3 },
-
-  { time: 57.016, lane: 1 },
-  { time: 57.250, lane: 2 },
-  { time: 57.484, lane: 0 },
-  { time: 57.719, lane: 3 },
-  { time: 57.953, lane: 1 },
-  { time: 58.188, lane: 2 },
-  { time: 58.422, lane: 0 },
-  { time: 58.656, lane: 3 },
-
-  { time: 59.125, lane: 0 },
-  { time: 59.359, lane: 1 },
-  { time: 59.594, lane: 2 },
-  { time: 59.828, lane: 3 },
-  { time: 60.000, lane: 0 },
-  { time: 60.000, lane: 3 }  // Double Hit Final
+  // --- Outro / Rapid Drop ---
+  { time: 27.200, lane: 0 }, { time: 27.400, lane: 1 }, { time: 27.600, lane: 2 }, { time: 27.800, lane: 3 },
+  { time: 28.000, lane: 2 }, { time: 28.200, lane: 1 }, { time: 28.400, lane: 0 }, { time: 28.600, lane: 3 },
+  { time: 28.800, lane: 1 }, { time: 29.000, lane: 2 }, { time: 29.200, lane: 0 }, { time: 29.200, lane: 3 }, // Double
+  { time: 29.600, lane: 1 }, { time: 29.800, lane: 2 }, { time: 30.000, lane: 0 }, { time: 30.000, lane: 3 }  // Double Final
 ];
-    
+
 // ==========================================
-// 3. FUNGSI LOGIKA GAME
+// 3. FUNGSI LOGIKA GAME & MULTI-TOUCH
 // ==========================================
 function startGame() {
     const mainMenu = document.getElementById('main-menu');
@@ -576,10 +428,10 @@ function startGame() {
     missCount = 0;
     
     document.querySelectorAll('.note').forEach(n => n.remove());
-    beatmapData.forEach(n => n.spawned = false);
+    beatmap.forEach(n => n.spawned = false);
 
     isPlaying = true;
-    update();
+    updateHUD();
 
     if (bgm) {
         bgm.currentTime = 0;
@@ -592,10 +444,10 @@ function startGame() {
     gameInterval = setInterval(() => {
         if (!isPlaying) return;
 
-        const elapsedTime = Date.now() - startTime;
+        const elapsedTime = (Date.now() - startTime) / 1000; // konversi ke detik
 
-        beatmapData.forEach(note => {
-            if (!note.spawned && elapsedTime >= note.timestamp) {
+        beatmap.forEach(note => {
+            if (!note.spawned && elapsedTime >= note.time) {
                 spawnNoteDOM(note.lane);
                 note.spawned = true;
             }
@@ -609,10 +461,10 @@ function startGame() {
             }
         });
 
-        if (elapsedTime >= 60000) {
+        if (elapsedTime >= 35) {
             endGame('congrats');
         }
-    }, 50);
+    }, 20);
 }
 
 function spawnNoteDOM(laneIndex) {
@@ -622,6 +474,33 @@ function spawnNoteDOM(laneIndex) {
     const noteEl = document.createElement('div');
     noteEl.className = 'note';
     lanes[laneIndex].appendChild(noteEl);
+}
+
+// Multi-Touch Handlers untuk Dukungan Double Hit
+function setupTouchEvents() {
+    const track = document.querySelector('.track-container');
+    if (!track) return;
+
+    const handleInput = (clientX, clientY) => {
+        const lanes = document.querySelectorAll('.lane');
+        lanes.forEach((lane, index) => {
+            const rect = lane.getBoundingClientRect();
+            if (clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom) {
+                hitLane(index);
+            }
+        });
+    };
+
+    track.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        for (let i = 0; i < e.changedTouches.length; i++) {
+            handleInput(e.changedTouches[i].clientX, e.changedTouches[i].clientY);
+        }
+    }, { passive: false });
+
+    track.addEventListener('mousedown', (e) => {
+        handleInput(e.clientX, e.clientY);
+    });
 }
 
 function hitLane(laneIndex) {
@@ -652,10 +531,10 @@ function hitLane(laneIndex) {
     const heartCenter = heartRect.top + (heartRect.height / 2);
     const distance = Math.abs(noteCenter - heartCenter);
 
-    if (distance <= 30) {
+    if (distance <= 40) {
         targetNote.remove();
         triggerJudgment('PERFECT');
-    } else if (distance <= 65) {
+    } else if (distance <= 80) {
         targetNote.remove();
         triggerJudgment('GOOD');
     }
@@ -694,16 +573,16 @@ function triggerJudgment(type) {
         combo = 0;
         missCount++;
 
-        if (missCount >= 15) {
+        if (missCount >= 20) {
             endGame('gameover');
             return;
         }
     }
 
-    update();
+    updateHUD();
 }
 
-function update() {
+function updateHUD() {
     const scoreEl = document.getElementById('score');
     const comboEl = document.getElementById('combo');
     if (scoreEl) scoreEl.innerText = score.toLocaleString();
@@ -834,6 +713,11 @@ function fetchGlobalScores() {
         listEl.innerHTML = "<p style='text-align:center; color:red;'>Terjadi kesalahan koneksi.</p>";
     }
 }
+
+// Jalankan Event Listener saat halaman dimuat
+document.addEventListener('DOMContentLoaded', () => {
+    setupTouchEvents();
+});
 </script>
 </body>
 </html>
