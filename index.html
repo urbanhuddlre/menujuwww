@@ -338,20 +338,20 @@
 // 1. INISIALISASI FIREBASE (v8 Format)
 // ==========================================
 const firebaseConfig = {
-    apiKey: "AIzaSyD2LJ3NNzgEN7YlyjAFka9Go1l0bqEIIHU",
-    authDomain: "tuh-ep.firebaseapp.com",
-    databaseURL: "https://tuh-ep-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "tuh-ep",
-    storageBucket: "tuh-ep.firebasestorage.app",
-    messagingSenderId: "589222410670",
-    appId: "1:589222410670:web:0efd4918597aad5424b03f",
-    measurementId: "G-ZBYCHHXRZ1"
-};
+        apiKey: "AIzaSyDUsMS5tfT9D1uPB3goNOV8B7h0GxIXKTE",
+        authDomain: "tuh-34252.firebaseapp.com",
+        databaseURL: "https://tuh-34252-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "tuh-34252",
+        storageBucket: "tuh-34252.firebasestorage.app",
+        messagingSenderId: "617954231350",
+        appId: "1:617954231350:web:f1680856f37dc8e87cc497",
+        measurementId: "G-MNE05FGWNB"
+    };
 
-// Inisialisasi Firebase v8 yang benar
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
+    if (typeof firebase !== 'undefined') {
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
 
 // ==========================================
 // 2. VARIABEL GLOBAL GAME
@@ -365,151 +365,124 @@ let goodCount = 0;
 let missCount = 0;
 
 const bgm = document.getElementById('bgm');
-
 let beatmapData = [
-    // --- Intro & Melodi Awal (0 - 10 Detik) ---
-    { timestamp: 500, lane: 0 },
-    { timestamp: 900, lane: 1 },
-    { timestamp: 1300, lane: 2 },
-    { timestamp: 1700, lane: 3 },
-    { timestamp: 2200, lane: 1 },
-    { timestamp: 2600, lane: 2 },
-    { timestamp: 3000, lane: 0 },
-    { timestamp: 3400, lane: 3 },
-    { timestamp: 4000, lane: 1 },
-    { timestamp: 4400, lane: 2 },
-    { timestamp: 4800, lane: 0 },
-    { timestamp: 5200, lane: 3 },
-    { timestamp: 5700, lane: 2 },
-    { timestamp: 6100, lane: 1 },
-    { timestamp: 6500, lane: 0 },
-    { timestamp: 6900, lane: 2 },
-    { timestamp: 7500, lane: 3 },
-    { timestamp: 7800, lane: 2 },
-    { timestamp: 8100, lane: 1 },
-    { timestamp: 8400, lane: 0 },
-    { timestamp: 8800, lane: 2 },
-    { timestamp: 9200, lane: 3 },
-    { timestamp: 9600, lane: 1 },
+    // --- INTRO / VERSE 1: "Yang... coba kau jujur padaku..." (0s - 15s) ---
+    // Pola: Single note santai, bergantian acak
+    { timestamp: 1000, lane: 0 },
+    { timestamp: 2200, lane: 2 },
+    { timestamp: 3500, lane: 1 },
+    { timestamp: 4800, lane: 3 },
+    { timestamp: 6000, lane: 0 },
+    { timestamp: 7200, lane: 2 },
+    { timestamp: 8500, lane: 1 },
+    { timestamp: 9800, lane: 3 },
 
-    // --- Bagian Verse 1 / Petikan Gitar (10 - 20 Detik) ---
-    { timestamp: 10200, lane: 0 },
-    { timestamp: 10600, lane: 2 },
-    { timestamp: 11000, lane: 1 },
-    { timestamp: 11400, lane: 3 },
-    { timestamp: 11900, lane: 0 },
-    { timestamp: 12300, lane: 1 },
-    { timestamp: 12700, lane: 2 },
-    { timestamp: 13100, lane: 3 },
-    { timestamp: 13600, lane: 1 },
-    { timestamp: 13900, lane: 2 },
-    { timestamp: 14200, lane: 3 },
-    { timestamp: 14500, lane: 1 },
-    { timestamp: 15000, lane: 0 },
-    { timestamp: 15400, lane: 2 },
-    { timestamp: 15800, lane: 1 },
-    { timestamp: 16200, lane: 3 },
-    { timestamp: 16700, lane: 2 },
-    { timestamp: 17000, lane: 1 },
-    { timestamp: 17300, lane: 0 },
-    { timestamp: 17600, lane: 3 },
-    { timestamp: 18100, lane: 2 },
-    { timestamp: 18500, lane: 0 },
-    { timestamp: 18900, lane: 1 },
-    { timestamp: 19300, lane: 3 },
-    { timestamp: 19800, lane: 0 },
+    // --- VERSE 2: "Yang... foto siapa di dompetmu..." (15s - 27s) ---
+    // Pola: Stair / Tangga (0 -> 1 -> 2 -> 3) & Pola Ping-Pong
+    { timestamp: 11000, lane: 0 },
+    { timestamp: 11500, lane: 1 },
+    { timestamp: 12000, lane: 2 },
+    { timestamp: 12500, lane: 3 },
+    
+    { timestamp: 14000, lane: 3 },
+    { timestamp: 14500, lane: 2 },
+    { timestamp: 15000, lane: 1 },
+    { timestamp: 15500, lane: 0 },
 
-    // --- Bagian Pre-Chorus / Variasi Tempo (20 - 30 Detik) ---
-    { timestamp: 20300, lane: 1 },
-    { timestamp: 20700, lane: 2 },
-    { timestamp: 21100, lane: 3 },
-    { timestamp: 21600, lane: 2 },
-    { timestamp: 22000, lane: 1 },
-    { timestamp: 22400, lane: 0 },
-    { timestamp: 22900, lane: 3 },
-    { timestamp: 23200, lane: 2 },
-    { timestamp: 23500, lane: 1 },
-    { timestamp: 23800, lane: 0 },
-    { timestamp: 24300, lane: 2 },
-    { timestamp: 24700, lane: 3 },
-    { timestamp: 25100, lane: 1 },
+    { timestamp: 17000, lane: 0 },
+    { timestamp: 17400, lane: 3 },
+    { timestamp: 17800, lane: 0 },
+    { timestamp: 18200, lane: 3 },
+
+    { timestamp: 19500, lane: 1 },
+    { timestamp: 20000, lane: 2 },
+    { timestamp: 20500, lane: 1 },
+    { timestamp: 21000, lane: 2 },
+
+    // --- TRANSISI / REFF PREPARATION: "Jawab atau aku pergi sayang..." (22s - 28s) ---
+    // Pola: Double Tap / Chord (Dua tombol bersamaan atau sangat cepat)
+    { timestamp: 22500, lane: 0 },
+    { timestamp: 22500, lane: 3 }, // Double hit kiri-kanan
+    { timestamp: 24000, lane: 1 },
+    { timestamp: 24000, lane: 2 }, // Double hit tengah
     { timestamp: 25500, lane: 0 },
-    { timestamp: 26000, lane: 1 },
-    { timestamp: 26400, lane: 2 },
-    { timestamp: 26800, lane: 0 },
-    { timestamp: 27200, lane: 3 },
-    { timestamp: 27700, lane: 2 },
-    { timestamp: 28100, lane: 1 },
-    { timestamp: 28500, lane: 0 },
-    { timestamp: 29000, lane: 3 },
-    { timestamp: 29500, lane: 2 },
+    { timestamp: 25800, lane: 1 },
+    { timestamp: 26100, lane: 2 },
+    { timestamp: 26400, lane: 3 },
 
-    // --- Bagian Puncak / Solo Gitar (30 - 45 Detik) ---
-    { timestamp: 30100, lane: 0 },
-    { timestamp: 30400, lane: 1 },
+    // --- CHORUS / REFF: "Aku tak mau bicara..." (28s - 45s) ---
+    // Pola: Zig-zag cepat & Runtutan nada padat
+    { timestamp: 28000, lane: 0 },
+    { timestamp: 28350, lane: 2 },
+    { timestamp: 28700, lane: 1 },
+    { timestamp: 29050, lane: 3 },
+
+    { timestamp: 30000, lane: 3 },
+    { timestamp: 30350, lane: 1 },
     { timestamp: 30700, lane: 2 },
-    { timestamp: 31000, lane: 3 },
-    { timestamp: 31500, lane: 1 },
-    { timestamp: 31800, lane: 2 },
-    { timestamp: 32100, lane: 0 },
-    { timestamp: 32400, lane: 3 },
-    { timestamp: 33000, lane: 2 },
-    { timestamp: 33300, lane: 1 },
-    { timestamp: 33600, lane: 0 },
-    { timestamp: 34000, lane: 3 },
-    { timestamp: 34500, lane: 1 },
-    { timestamp: 34800, lane: 2 },
-    { timestamp: 35100, lane: 3 },
-    { timestamp: 35500, lane: 0 },
-    { timestamp: 36000, lane: 2 },
-    { timestamp: 36400, lane: 1 },
-    { timestamp: 36800, lane: 3 },
-    { timestamp: 37200, lane: 0 },
-    { timestamp: 37700, lane: 1 },
-    { timestamp: 38100, lane: 2 },
-    { timestamp: 38500, lane: 0 },
-    { timestamp: 38900, lane: 3 },
-    { timestamp: 39400, lane: 2 },
-    { timestamp: 39800, lane: 1 },
-    { timestamp: 40200, lane: 0 },
-    { timestamp: 40700, lane: 3 },
-    { timestamp: 41100, lane: 2 },
-    { timestamp: 41500, lane: 1 },
-    { timestamp: 42000, lane: 0 },
-    { timestamp: 42400, lane: 2 },
-    { timestamp: 42800, lane: 3 },
-    { timestamp: 43300, lane: 1 },
-    { timestamp: 43700, lane: 0 },
-    { timestamp: 44200, lane: 2 },
-    { timestamp: 44600, lane: 3 },
+    { timestamp: 31050, lane: 0 },
 
-    // --- Outro & Penutup (45 - 60 Detik) ---
-    { timestamp: 45200, lane: 0 },
-    { timestamp: 45600, lane: 1 },
-    { timestamp: 46000, lane: 2 },
-    { timestamp: 46400, lane: 3 },
-    { timestamp: 47000, lane: 1 },
+    // "Sebelum kau cerita semua..." (Rapid burst)
+    { timestamp: 32500, lane: 1 },
+    { timestamp: 32800, lane: 2 },
+    { timestamp: 33100, lane: 1 },
+    { timestamp: 33400, lane: 2 },
+    { timestamp: 33700, lane: 0 },
+    { timestamp: 34000, lane: 3 },
+
+    // "Apa maumu.. siapa dirinya..."
+    { timestamp: 35500, lane: 0 },
+    { timestamp: 35850, lane: 1 },
+    { timestamp: 36200, lane: 2 },
+    { timestamp: 36550, lane: 3 },
+    { timestamp: 36900, lane: 2 },
+    { timestamp: 37250, lane: 1 },
+    { timestamp: 37600, lane: 0 },
+
+    // "Tak bertah bila ada yang lain..."
+    { timestamp: 39000, lane: 0 },
+    { timestamp: 39000, lane: 2 }, // Double
+    { timestamp: 40200, lane: 1 },
+    { timestamp: 40200, lane: 3 }, // Double
+    { timestamp: 41500, lane: 0 },
+    { timestamp: 41800, lane: 3 },
+    { timestamp: 42100, lane: 1 },
+    { timestamp: 42400, lane: 2 },
+
+    // --- OUTRO / ENDING: "Jangan hubungiku lagi..." (45s - 60s) ---
+    // Pola: Penutup rapat & aksen nada tinggi
+    { timestamp: 44000, lane: 0 },
+    { timestamp: 44300, lane: 1 },
+    { timestamp: 44600, lane: 2 },
+    { timestamp: 44900, lane: 3 },
+
+    { timestamp: 46500, lane: 3 },
+    { timestamp: 46800, lane: 2 },
+    { timestamp: 47100, lane: 1 },
     { timestamp: 47400, lane: 0 },
-    { timestamp: 47800, lane: 2 },
-    { timestamp: 48200, lane: 3 },
-    { timestamp: 48800, lane: 1 },
-    { timestamp: 49200, lane: 2 },
+
+    { timestamp: 49000, lane: 1 },
+    { timestamp: 49300, lane: 2 },
     { timestamp: 49600, lane: 0 },
-    { timestamp: 50100, lane: 3 },
-    { timestamp: 50600, lane: 2 },
-    { timestamp: 51100, lane: 1 },
-    { timestamp: 51600, lane: 0 },
-    { timestamp: 52200, lane: 3 },
-    { timestamp: 52800, lane: 2 },
-    { timestamp: 53400, lane: 1 },
-    { timestamp: 54000, lane: 0 },
-    { timestamp: 54800, lane: 2 },
-    { timestamp: 55500, lane: 3 },
-    { timestamp: 56300, lane: 1 },
-    { timestamp: 57200, lane: 0 },
-    { timestamp: 58200, lane: 2 },
-    { timestamp: 59000, lane: 3 }
+    { timestamp: 49900, lane: 3 },
+
+    // "Sekarang atau tak selamanya..." (Klimaks akhir)
+    { timestamp: 52000, lane: 0 },
+    { timestamp: 52250, lane: 1 },
+    { timestamp: 52500, lane: 2 },
+    { timestamp: 52750, lane: 3 },
+    { timestamp: 53000, lane: 2 },
+    { timestamp: 53250, lane: 1 },
+    { timestamp: 53500, lane: 0 },
+
+    { timestamp: 55000, lane: 0 },
+    { timestamp: 55000, lane: 3 }, // Double Hit
+    { timestamp: 56500, lane: 1 },
+    { timestamp: 56500, lane: 2 }, // Double Hit
+    { timestamp: 58000, lane: 0 },
+    { timestamp: 59000, lane: 3 }  // Note Terakhir
 ];
+
     
 // ==========================================
 // 3. FUNGSI LOGIKA GAME
