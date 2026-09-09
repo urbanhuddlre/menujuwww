@@ -15,7 +15,9 @@
             src: url('Hillios.otf') format('opentype');
         }
 
-        h1 { font-family: 'Hillios', sans-serif !important; }
+        h1 {
+            font-family: 'Hillios', sans-serif !important;
+        }
 
         :root {
             --accent-color: #e95500;
@@ -28,37 +30,49 @@
             box-sizing: border-box;
             user-select: none;
             -webkit-user-select: none;
-            touch-action: none;
+            touch-action: manipulation;
         }
 
         body {
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            width: 100vw; height: 100vh;
+            width: 100vw;
+            height: 100vh;
             overflow: hidden;
-            display: flex; justify-content: center; align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         #game-container {
-            width: 100vw; height: 100vh;
-            max-width: 480px; max-height: 100vh;
+            width: 100vw;
+            height: 100vh;
+            max-width: 480px;
+            max-height: 100vh;
             background: #ffffff;
             position: relative;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-            display: flex; flex-direction: column;
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
         }
 
         .logo-wrapper {
-            width: 130px; height: 130px;
-            display: flex; justify-content: center; align-items: center;
+            width: 130px;
+            height: 130px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin-bottom: 15px;
         }
 
         .logo-wrapper img {
-            width: 100%; height: 100%; object-fit: contain;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
             filter: drop-shadow(0 4px 10px rgba(233, 85, 0, 0.3));
         }
 
@@ -68,66 +82,100 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
             z-index: 9999 !important;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             padding: 20px;
         }
 
         #game-screen {
-            display: none; width: 100%; height: 100%; position: relative;
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: relative;
         }
 
         .btn {
-            background: #ffef9a; color: #e95402;
-            border: none; padding: 14px 28px;
-            font-size: 16px; font-weight: 800;
-            border-radius: 25px; cursor: pointer !important;
+            background: #ffef9a;
+            color: #e95402;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 800;
+            border-radius: 25px;
+            cursor: pointer !important;
             pointer-events: auto !important;
             box-shadow: 0 8px 25px rgba(52, 71, 253, 0.4);
-            transition: transform 0.1s; margin: 8px 0;
-            width: 80%; max-width: 250px; text-align: center;
-            position: relative; z-index: 10000 !important;
+            transition: transform 0.1s;
+            margin: 8px 0;
+            width: 80%;
+            max-width: 250px;
+            text-align: center;
+            position: relative;
+            z-index: 10000 !important;
             font-family: 'Poppins', sans-serif;
         }
 
         .btn:active { transform: scale(0.95); }
 
         .hud {
-            position: absolute; top: 20px; left: 20px; right: 20px;
-            display: flex; justify-content: space-between;
-            font-weight: 800; font-size: 18px;
-            color: var(--accent-color); z-index: 10;
+            position: absolute;
+            top: 20px; left: 20px; right: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--accent-color);
+            z-index: 10;
         }
 
         #judgment-text {
-            position: absolute; top: 40%; left: 50%;
+            position: absolute;
+            top: 40%; left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 32px; font-weight: 900;
-            opacity: 0; transition: opacity 0.1s;
-            z-index: 10; pointer-events: none;
+            font-size: 32px;
+            font-weight: 900;
+            opacity: 0;
+            transition: opacity 0.1s;
+            z-index: 10;
+            pointer-events: none;
         }
 
         .track-container {
-            display: flex; width: 100%; height: 100%; position: relative;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
         }
 
         .lane {
-            flex: 1; border-right: 1px dashed #eee;
-            position: relative; height: 100%; overflow: hidden;
+            flex: 1;
+            border-right: 1px dashed #eee;
+            position: relative;
+            height: 100%;
+            overflow: hidden;
         }
 
         .lane:last-child { border-right: none; }
 
         .heart-key {
-            position: absolute; bottom: 120px; left: 50%;
+            position: absolute;
+            bottom: 120px;
+            left: 50%;
             transform: translateX(-50%);
-            width: 50px; height: 50px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             border: 3px solid var(--accent-color);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; color: var(--accent-color);
-            background: white; box-shadow: 0 4px 10px rgba(233, 85, 0, 0.2);
-            pointer-events: none; z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--accent-color);
+            background: white;
+            box-shadow: 0 4px 10px rgba(233, 85, 0, 0.2);
+            pointer-events: none;
         }
 
         .heart-key.active-press {
@@ -137,42 +185,58 @@
             box-shadow: 0 0 20px var(--accent-color) !important;
             transition: transform 0.05s ease, background 0.05s ease;
         }
-
-        #svg-layer {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none; z-index: 2;
+        
+        .note {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            left: calc(50% - 18px);
+            background: #adc642;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(233, 85, 0, 0.5);
+            animation: fall 2.2s linear forwards;
         }
 
-        .note {
-            position: absolute; width: 36px; height: 36px;
-            margin-left: -18px; margin-top: -18px;
-            background: #adc642; border-radius: 50%;
-            box-shadow: 0 0 10px rgba(233, 85, 0, 0.5);
-            z-index: 3; pointer-events: none;
+        @keyframes fall {
+            0% { top: -40px; }
+            100% { top: 100%; }
         }
 
         .result-box {
-            background: #ffffff; border: 2px solid #f0f0f5;
-            padding: 30px 24px; border-radius: 30px;
-            width: 85%; max-width: 360px; text-align: center;
+            background: #ffffff;
+            border: 2px solid #f0f0f5;
+            padding: 30px 24px;
+            border-radius: 30px;
+            width: 85%;
+            max-width: 360px;
+            text-align: center;
             box-shadow: 0 20px 40px rgba(233, 85, 0, 0.15);
         }
 
         .score-big {
-            font-size: 36px; font-weight: 900;
-            margin: 5px 0 15px 0; color: var(--accent-color);
+            font-size: 36px;
+            font-weight: 900;
+            margin: 5px 0 15px 0;
+            color: var(--accent-color);
         }
 
         .stats-container {
-            display: flex; justify-content: space-between;
-            gap: 8px; margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
         .stat-pill {
-            flex: 1; padding: 10px 4px; border-radius: 15px;
-            font-size: 11px; font-weight: 800; background: #f8f8fc;
-            display: flex; flex-direction: column; gap: 4px;
+            flex: 1;
+            padding: 10px 4px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 800;
+            background: #f8f8fc;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .stat-pill span { font-size: 18px; }
@@ -181,20 +245,30 @@
         .stat-pill.miss { color: #888888; }
 
         #username-input {
-            width: 100%; padding: 12px 16px;
-            border: 2px solid #f0f0f5; border-radius: 20px;
-            outline: none; font-size: 14px; font-weight: 700;
-            text-align: center; background: #f8f8fc;
-            margin-bottom: 15px; pointer-events: auto !important;
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #f0f0f5;
+            border-radius: 20px;
+            outline: none;
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            background: #f8f8fc;
+            margin-bottom: 15px;
+            pointer-events: auto !important;
             font-family: 'Poppins', sans-serif;
         }
 
-        #username-input:focus { border-color: var(--accent-color); background: #fff; }
+        #username-input:focus {
+            border-color: var(--accent-color);
+            background: #fff;
+        }
     </style>
 </head>
 <body>
 
 <div id="game-container">
+
     <audio id="bgm" src="music.mp3" preload="auto"></audio>
 
     <!-- 1. MAIN MENU -->
@@ -216,7 +290,6 @@
         <div id="judgment-text">PERFECT</div>
 
         <div class="track-container">
-            <svg id="svg-layer"></svg>
             <div class="lane" data-lane="0"><div class="heart-key">♥</div></div>
             <div class="lane" data-lane="1"><div class="heart-key">♥</div></div>
             <div class="lane" data-lane="2"><div class="heart-key">♥</div></div>
@@ -252,6 +325,7 @@
             <button class="btn" onclick="toggleLeaderboard(false)">KEMBALI</button>
         </div>
     </div>
+
 </div>
 
 <script>
@@ -283,95 +357,103 @@ try {
 let score = 0;
 let combo = 0;
 let isPlaying = false;
-let gameAnimFrame = null;
+let gameInterval = null;
 let perfectCount = 0;
 let goodCount = 0;
 let missCount = 0;
-let activeNotes = [];
-let activeTouches = {}; // Melacak sentuhan jari aktif
 
 const bgm = document.getElementById('bgm');
-const FALL_SPEED = 400; // Kecepatan jatuh note (pixel / detik)
 
-// BEATMAP DENGAN HOLD NOTE & ZIGZAG (Contoh bagian yank yankkkk)
+// Beatmap diperkerat (kecepatan jatuh/durasi dinaikkan & kerapatan dipadatkan)
+// Beatmap Durasi 1 Menit (60 Detik)
 let beatmap = [
-  // --- Intro ---
-  { id: 1, time: 1.0, type: 'tap', lane: 0 },
-  { id: 2, time: 1.4, type: 'tap', lane: 1 },
-  { id: 3, time: 1.8, type: 'tap', lane: 2 },
-  { id: 4, time: 2.2, type: 'tap', lane: 3 },
+  // --- Intro (0 - 10s) ---
+  { time: 1.000, lane: 0 }, { time: 1.400, lane: 1 }, { time: 1.800, lane: 2 }, { time: 2.200, lane: 3 },
+  { time: 2.600, lane: 2 }, { time: 3.000, lane: 1 }, { time: 3.400, lane: 0 }, { time: 3.800, lane: 3 },
+  { time: 4.200, lane: 1 }, { time: 4.600, lane: 2 }, { time: 5.000, lane: 0 }, { time: 5.000, lane: 3 }, // Double
+  { time: 5.500, lane: 1 }, { time: 5.900, lane: 2 }, { time: 6.300, lane: 0 }, { time: 6.700, lane: 3 },
+  { time: 7.100, lane: 1 }, { time: 7.500, lane: 2 }, { time: 7.900, lane: 0 }, { time: 8.300, lane: 3 },
+  { time: 8.700, lane: 1 }, { time: 9.100, lane: 2 }, { time: 9.500, lane: 0 }, { time: 9.500, lane: 3 }, // Double
   
-  // --- Hold Note Zigzag di bagian "Yank Yankkkk" ---
-  { 
-    id: 5, 
-    time: 3.5, 
-    type: 'hold', 
-    duration: 3.0, 
-    // Path Zigzag: Lane urut dari 0 -> 1 -> 2 -> 3 -> 2 -> 1 -> 0
-    path: [
-      { t: 0.0, lane: 0 },
-      { t: 0.5, lane: 1 },
-      { t: 1.0, lane: 2 },
-      { t: 1.5, lane: 3 },
-      { t: 2.0, lane: 2 },
-      { t: 2.5, lane: 1 },
-      { t: 3.0, lane: 0 }
-    ]
-  },
+  // --- Verse 1 (10 - 20s) ---
+  { time: 10.000, lane: 0 }, { time: 10.300, lane: 1 }, { time: 10.600, lane: 2 }, { time: 10.900, lane: 3 },
+  { time: 11.200, lane: 2 }, { time: 11.500, lane: 1 }, { time: 11.800, lane: 0 }, { time: 12.100, lane: 2 },
+  { time: 12.400, lane: 1 }, { time: 12.700, lane: 3 }, { time: 13.000, lane: 0 }, { time: 13.300, lane: 2 },
+  { time: 13.600, lane: 1 }, { time: 13.900, lane: 2 }, { time: 14.200, lane: 0 }, { time: 14.200, lane: 3 }, // Double
+  { time: 14.700, lane: 2 }, { time: 15.000, lane: 1 }, { time: 15.300, lane: 3 }, { time: 15.600, lane: 0 },
+  { time: 15.900, lane: 1 }, { time: 16.200, lane: 2 }, { time: 16.500, lane: 0 }, { time: 16.800, lane: 3 },
+  { time: 17.100, lane: 1 }, { time: 17.400, lane: 2 }, { time: 17.700, lane: 0 }, { time: 18.000, lane: 3 },
+  { time: 18.500, lane: 0 }, { time: 18.800, lane: 1 }, { time: 19.100, lane: 2 }, { time: 19.400, lane: 3 },
 
-  { id: 6, time: 7.0, type: 'tap', lane: 1 },
-  { id: 7, time: 7.5, type: 'tap', lane: 2 },
+  // --- Chorus 1 (20 - 35s) ---
+  { time: 20.000, lane: 0 }, { time: 20.250, lane: 1 }, { time: 20.500, lane: 2 }, { time: 20.750, lane: 3 },
+  { time: 21.000, lane: 1 }, { time: 21.250, lane: 2 }, { time: 21.500, lane: 0 }, { time: 21.750, lane: 3 },
+  { time: 22.000, lane: 1 }, { time: 22.250, lane: 0 }, { time: 22.500, lane: 2 }, { time: 22.750, lane: 3 },
+  { time: 23.000, lane: 0 }, { time: 23.000, lane: 3 }, // Double
+  { time: 23.500, lane: 1 }, { time: 23.750, lane: 2 }, { time: 24.000, lane: 0 }, { time: 24.250, lane: 3 },
+  { time: 24.500, lane: 1 }, { time: 24.750, lane: 2 }, { time: 25.000, lane: 0 }, { time: 25.250, lane: 3 },
+  { time: 25.500, lane: 1 }, { time: 25.750, lane: 2 }, { time: 26.000, lane: 0 }, { time: 26.000, lane: 2 }, // Double
+  { time: 26.500, lane: 1 }, { time: 26.750, lane: 3 }, { time: 27.000, lane: 0 }, { time: 27.250, lane: 2 },
+  { time: 27.500, lane: 1 }, { time: 27.750, lane: 3 }, { time: 28.000, lane: 0 }, { time: 28.250, lane: 2 },
+  { time: 28.500, lane: 1 }, { time: 28.750, lane: 0 }, { time: 29.000, lane: 2 }, { time: 29.250, lane: 3 },
+  { time: 29.500, lane: 0 }, { time: 29.500, lane: 3 }, // Double
+  { time: 30.000, lane: 1 }, { time: 30.250, lane: 2 }, { time: 30.500, lane: 0 }, { time: 30.750, lane: 3 },
+  { time: 31.000, lane: 1 }, { time: 31.250, lane: 2 }, { time: 31.500, lane: 0 }, { time: 31.750, lane: 3 },
+  { time: 32.000, lane: 0 }, { time: 32.250, lane: 1 }, { time: 32.500, lane: 2 }, { time: 32.750, lane: 3 },
+  { time: 33.000, lane: 1 }, { time: 33.250, lane: 2 }, { time: 33.500, lane: 0 }, { time: 33.750, lane: 3 },
+  { time: 34.000, lane: 0 }, { time: 34.000, lane: 3 }, // Double
 
-  // --- Hold Zigzag kedua ---
-  { 
-    id: 8, 
-    time: 8.5, 
-    type: 'hold', 
-    duration: 2.5, 
-    path: [
-      { t: 0.0, lane: 3 },
-      { t: 0.6, lane: 1 },
-      { t: 1.2, lane: 2 },
-      { t: 1.8, lane: 0 },
-      { t: 2.5, lane: 3 }
-    ]
-  }
+  // --- Breakdown / Bridge (35 - 45s) ---
+  { time: 35.000, lane: 1 }, { time: 35.400, lane: 2 }, { time: 35.800, lane: 1 }, { time: 36.200, lane: 2 },
+  { time: 36.600, lane: 0 }, { time: 37.000, lane: 3 }, { time: 37.400, lane: 0 }, { time: 37.800, lane: 3 },
+  { time: 38.200, lane: 1 }, { time: 38.600, lane: 2 }, { time: 39.000, lane: 1 }, { time: 39.400, lane: 2 },
+  { time: 39.800, lane: 0 }, { time: 39.800, lane: 3 }, // Double
+  { time: 40.400, lane: 1 }, { time: 40.800, lane: 2 }, { time: 41.200, lane: 0 }, { time: 41.600, lane: 3 },
+  { time: 42.000, lane: 1 }, { time: 42.400, lane: 2 }, { time: 42.800, lane: 0 }, { time: 43.200, lane: 3 },
+  { time: 43.600, lane: 1 }, { time: 44.000, lane: 2 }, { time: 44.400, lane: 0 }, { time: 44.400, lane: 3 }, // Double
+
+  // --- Final Climax (45 - 58s) ---
+  { time: 45.000, lane: 0 }, { time: 45.200, lane: 1 }, { time: 45.400, lane: 2 }, { time: 45.600, lane: 3 },
+  { time: 45.800, lane: 2 }, { time: 46.000, lane: 1 }, { time: 46.200, lane: 0 }, { time: 46.400, lane: 3 },
+  { time: 46.600, lane: 1 }, { time: 46.800, lane: 2 }, { time: 47.000, lane: 0 }, { time: 47.000, lane: 3 }, // Double
+  { time: 47.400, lane: 1 }, { time: 47.600, lane: 2 }, { time: 47.800, lane: 0 }, { time: 48.000, lane: 3 },
+  { time: 48.200, lane: 1 }, { time: 48.400, lane: 2 }, { time: 48.600, lane: 0 }, { time: 48.800, lane: 3 },
+  { time: 49.000, lane: 1 }, { time: 49.200, lane: 0 }, { time: 49.400, lane: 2 }, { time: 49.600, lane: 3 },
+  { time: 49.800, lane: 0 }, { time: 49.800, lane: 3 }, // Double
+  { time: 50.200, lane: 1 }, { time: 50.400, lane: 2 }, { time: 50.600, lane: 0 }, { time: 50.800, lane: 3 },
+  { time: 51.000, lane: 1 }, { time: 51.200, lane: 2 }, { time: 51.400, lane: 0 }, { time: 51.600, lane: 3 },
+  { time: 51.800, lane: 0 }, { time: 52.000, lane: 1 }, { time: 52.200, lane: 2 }, { time: 52.400, lane: 3 },
+  { time: 52.600, lane: 2 }, { time: 52.800, lane: 1 }, { time: 53.000, lane: 0 }, { time: 53.200, lane: 3 },
+  { time: 53.400, lane: 1 }, { time: 53.600, lane: 2 }, { time: 53.800, lane: 0 }, { time: 53.800, lane: 3 }, // Double
+  { time: 54.200, lane: 1 }, { time: 54.400, lane: 2 }, { time: 54.600, lane: 0 }, { time: 54.800, lane: 3 },
+  { time: 55.000, lane: 1 }, { time: 55.200, lane: 2 }, { time: 55.400, lane: 0 }, { time: 55.600, lane: 3 },
+  { time: 55.800, lane: 0 }, { time: 55.800, lane: 3 }, // Double
+  { time: 56.200, lane: 1 }, { time: 56.400, lane: 2 }, { time: 56.600, lane: 0 }, { time: 56.800, lane: 3 },
+  { time: 57.200, lane: 1 }, { time: 57.200, lane: 2 }, // Double Final
+  { time: 58.000, lane: 0 }, { time: 58.000, lane: 3 }  // Double End
 ];
-
 // ==========================================
-// 3. FUNGSI UTAMA GAME & ENGINE
+// 3. FUNGSI LOGIKA GAME & MULTI-TOUCH
 // ==========================================
-function getLaneX(laneIndex) {
-    const container = document.getElementById('game-container');
-    const width = container.clientWidth;
-    const laneWidth = width / 4;
-    return (laneIndex + 0.5) * laneWidth;
-}
-
-function getHitY() {
-    return window.innerHeight - 145; // Posisi vertikal heart-key
-}
-
 function startGame() {
-    document.getElementById('main-menu').style.display = 'none';
-    document.getElementById('result-screen').style.display = 'none';
-    document.getElementById('leaderboard-modal').style.display = 'none';
-    document.getElementById('game-screen').style.display = 'block';
+    const mainMenu = document.getElementById('main-menu');
+    const resultScreen = document.getElementById('result-screen');
+    const leaderboardModal = document.getElementById('leaderboard-modal');
+    const gameScreen = document.getElementById('game-screen');
 
-    score = 0; combo = 0; perfectCount = 0; goodCount = 0; missCount = 0;
-    activeNotes = [];
-    activeTouches = {};
+    if (mainMenu) mainMenu.style.display = 'none';
+    if (resultScreen) resultScreen.style.display = 'none';
+    if (leaderboardModal) leaderboardModal.style.display = 'none';
+    if (gameScreen) gameScreen.style.display = 'block';
+    
+    score = 0;
+    combo = 0;
+    perfectCount = 0;
+    goodCount = 0;
+    missCount = 0;
+    
     document.querySelectorAll('.note').forEach(n => n.remove());
-    document.getElementById('svg-layer').innerHTML = '';
-
-    beatmap.forEach(n => {
-        n.spawned = false;
-        n.hit = false;
-        n.holding = false;
-        n.completed = false;
-        n.missed = false;
-        n.lastTick = 0;
-    });
+    beatmap.forEach(n => n.spawned = false);
 
     isPlaying = true;
     updateHUD();
@@ -381,288 +463,147 @@ function startGame() {
         bgm.play().catch(() => {});
     }
 
+    if (gameInterval) clearInterval(gameInterval);
     const startTime = Date.now();
 
-    function gameLoop() {
+    gameInterval = setInterval(() => {
         if (!isPlaying) return;
-        const currentTime = (Date.now() - startTime) / 1000;
 
-        // Spawn notes
+        const elapsedTime = (Date.now() - startTime) / 1000; // konversi ke detik
+
         beatmap.forEach(note => {
-            if (!note.spawned && currentTime >= note.time) {
-                spawnNote(note);
+            if (!note.spawned && elapsedTime >= note.time) {
+                spawnNoteDOM(note.lane);
                 note.spawned = true;
             }
         });
 
-        // Update Posisi & Status Note
-        updateNotes(currentTime);
+        document.querySelectorAll('.note').forEach(noteEl => {
+            const rect = noteEl.getBoundingClientRect();
+            if (rect.top > window.innerHeight - 50) {
+                noteEl.remove();
+                triggerJudgment('MISS');
+            }
+        });
 
-        if (currentTime >= 20) { // Durasi game
+        if (elapsedTime >= 65) {
             endGame('congrats');
-            return;
         }
-
-        gameAnimFrame = requestAnimationFrame(gameLoop);
-    }
-
-    if (gameAnimFrame) cancelAnimationFrame(gameAnimFrame);
-    gameAnimFrame = requestAnimationFrame(gameLoop);
+    }, 20);
 }
 
-function spawnNote(noteData) {
-    if (noteData.type === 'tap') {
-        const el = document.createElement('div');
-        el.className = 'note';
-        document.getElementById('game-screen').appendChild(el);
-        noteData.el = el;
-    } else if (noteData.type === 'hold') {
-        const svg = document.getElementById('svg-layer');
-        const pathEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        pathEl.setAttribute("stroke", "#e95500");
-        pathEl.setAttribute("stroke-width", "28");
-        pathEl.setAttribute("fill", "none");
-        pathEl.setAttribute("stroke-linecap", "round");
-        pathEl.setAttribute("opacity", "0.8");
-        svg.appendChild(pathEl);
-        noteData.pathEl = pathEl;
+function spawnNoteDOM(laneIndex) {
+    const lanes = document.querySelectorAll('.lane');
+    if (!lanes[laneIndex]) return;
 
-        const headEl = document.createElement('div');
-        headEl.className = 'note';
-        document.getElementById('game-screen').appendChild(headEl);
-        noteData.headEl = headEl;
-    }
-    activeNotes.push(noteData);
+    const noteEl = document.createElement('div');
+    noteEl.className = 'note';
+    lanes[laneIndex].appendChild(noteEl);
 }
 
-function getCurrentLaneForHold(note, relativeTime) {
-    const path = note.path;
-    if (relativeTime <= 0) return path[0].lane;
-    if (relativeTime >= note.duration) return path[path.length - 1].lane;
-
-    for (let i = 0; i < path.length - 1; i++) {
-        if (relativeTime >= path[i].t && relativeTime <= path[i+1].t) {
-            const progress = (relativeTime - path[i].t) / (path[i+1].t - path[i].t);
-            return path[i].lane + (path[i+1].lane - path[i].lane) * progress;
-        }
-    }
-    return path[0].lane;
-}
-
-function updateNotes(currentTime) {
-    const hitY = getHitY();
-
-    activeNotes.forEach(note => {
-        if (note.completed || note.missed) return;
-
-        if (note.type === 'tap') {
-            const elapsed = currentTime - note.time;
-            const currentY = hitY - (FALL_SPEED * (0 - elapsed));
-            note.el.style.top = currentY + 'px';
-            note.el.style.left = getLaneX(note.lane) + 'px';
-
-            // Automiss kalau terlewat
-            if (currentY > hitY + 60 && !note.hit) {
-                note.missed = true;
-                note.el.remove();
-                triggerJudgment('MISS');
-            }
-        } 
-        else if (note.type === 'hold') {
-            const headElapsed = currentTime - note.time;
-            const headY = hitY + (headElapsed * FALL_SPEED);
-
-            // Gambar Jalur SVG Zigzag
-            let d = "";
-            const samples = 30;
-            for (let i = 0; i <= samples; i++) {
-                const stepT = (note.duration / samples) * i;
-                const sampleLane = getCurrentLaneForHold(note, stepT);
-                const x = getLaneX(sampleLane);
-                const nodeElapsed = currentTime - (note.time + stepT);
-                const y = hitY + (nodeElapsed * FALL_SPEED);
-
-                // Potong bagian bawah jika sedang di-hold
-                if (note.holding && y > hitY) {
-                    d += (i === 0 ? "M" : "L") + " " + x + " " + hitY + " ";
-                } else {
-                    d += (i === 0 ? "M" : "L") + " " + x + " " + y + " ";
-                }
-            }
-            note.pathEl.setAttribute("d", d);
-
-            // Posisi Kepala Note
-            const currentHeadLane = getCurrentLaneForHold(note, Math.max(0, headElapsed));
-            note.headEl.style.left = getLaneX(currentHeadLane) + 'px';
-            note.headEl.style.top = Math.min(headY, hitY) + 'px';
-
-            // Pengecekan posisi jari saat hold
-            if (note.holding) {
-                const targetLane = getCurrentLaneForHold(note, headElapsed);
-                const targetX = getLaneX(targetLane);
-                let touchHolding = false;
-
-                // Verifikasi apakah ada jari di area target
-                for (let id in activeTouches) {
-                    if (Math.abs(activeTouches[id].x - targetX) < 60) {
-                        touchHolding = true;
-                        break;
-                    }
-                }
-
-                if (touchHolding) {
-                    // Tambahkan skor bertahap saat menahan
-                    if (currentTime - note.lastTick > 0.1) {
-                        score += 15;
-                        combo++;
-                        updateHUD();
-                        note.lastTick = currentTime;
-                    }
-                } else {
-                    // Jari terlepas / keluar dari pola zigzag
-                    note.holding = false;
-                    note.missed = true;
-                    triggerJudgment('MISS');
-                    cleanHoldNote(note);
-                }
-            }
-
-            // Selesai hold
-            if (headElapsed >= note.duration) {
-                if (note.holding) {
-                    triggerJudgment('PERFECT');
-                }
-                note.completed = true;
-                cleanHoldNote(note);
-            } else if (headY > hitY + 80 && !note.holding) {
-                note.missed = true;
-                triggerJudgment('MISS');
-                cleanHoldNote(note);
-            }
-        }
-    });
-}
-
-function cleanHoldNote(note) {
-    if (note.pathEl) note.pathEl.remove();
-    if (note.headEl) note.headEl.remove();
-}
-
-// ==========================================
-// 4. MULTI-TOUCH & INPUT HANDLING
-// ==========================================
+// Multi-Touch Handlers untuk Dukungan Double Hit
 function setupTouchEvents() {
-    const gameScreen = document.getElementById('game-screen');
+    const track = document.querySelector('.track-container');
+    if (!track) return;
 
-    const processTouchStart = (id, x, y) => {
-        activeTouches[id] = { x, y };
-        const hitY = getHitY();
-
-        // Visual efek tombol di tekan
-        const laneIndex = Math.floor(x / (window.innerWidth / 4));
+    const handleInput = (clientX, clientY) => {
         const lanes = document.querySelectorAll('.lane');
-        if (lanes[laneIndex]) {
-            const key = lanes[laneIndex].querySelector('.heart-key');
-            if (key) {
-                key.classList.add('active-press');
-                setTimeout(() => key.classList.remove('active-press'), 100);
-            }
-        }
-
-        // Pengecekan Hit Note
-        activeNotes.forEach(note => {
-            if (note.completed || note.missed) return;
-
-            if (note.type === 'tap' && !note.hit) {
-                const noteX = getLaneX(note.lane);
-                const noteY = parseFloat(note.el.style.top || 0);
-                const dist = Math.abs(noteY - hitY);
-
-                if (Math.abs(x - noteX) < 40 && dist <= 80) {
-                    note.hit = true;
-                    note.completed = true;
-                    note.el.remove();
-                    triggerJudgment(dist <= 40 ? 'PERFECT' : 'GOOD');
-                }
-            } else if (note.type === 'hold' && !note.holding) {
-                const startX = getLaneX(note.path[0].lane);
-                const noteY = parseFloat(note.headEl.style.top || 0);
-                const dist = Math.abs(noteY - hitY);
-
-                if (Math.abs(x - startX) < 50 && dist <= 80) {
-                    note.holding = true;
-                    triggerJudgment('PERFECT');
-                }
+        lanes.forEach((lane, index) => {
+            const rect = lane.getBoundingClientRect();
+            if (clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom) {
+                hitLane(index);
             }
         });
     };
 
-    const processTouchMove = (id, x, y) => {
-        if (activeTouches[id]) {
-            activeTouches[id] = { x, y };
-        }
-    };
-
-    const processTouchEnd = (id) => {
-        delete activeTouches[id];
-    };
-
-    // Event Touch Screen
-    gameScreen.addEventListener('touchstart', (e) => {
+    track.addEventListener('touchstart', (e) => {
         e.preventDefault();
         for (let i = 0; i < e.changedTouches.length; i++) {
-            const t = e.changedTouches[i];
-            processTouchStart(t.identifier, t.clientX, t.clientY);
+            handleInput(e.changedTouches[i].clientX, e.changedTouches[i].clientY);
         }
     }, { passive: false });
 
-    gameScreen.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-        for (let i = 0; i < e.changedTouches.length; i++) {
-            const t = e.changedTouches[i];
-            processTouchMove(t.identifier, t.clientX, t.clientY);
-        }
-    }, { passive: false });
+    track.addEventListener('mousedown', (e) => {
+        handleInput(e.clientX, e.clientY);
+    });
+}
 
-    gameScreen.addEventListener('touchend', (e) => {
-        for (let i = 0; i < e.changedTouches.length; i++) {
-            processTouchEnd(e.changedTouches[i].identifier);
-        }
-    });
+function hitLane(laneIndex) {
+    if (!isPlaying) return;
 
-    // Fallback Mouse Support
-    let isMouseDown = false;
-    gameScreen.addEventListener('mousedown', (e) => {
-        isMouseDown = true;
-        processTouchStart('mouse', e.clientX, e.clientY);
-    });
-    gameScreen.addEventListener('mousemove', (e) => {
-        if (isMouseDown) processTouchMove('mouse', e.clientX, e.clientY);
-    });
-    gameScreen.addEventListener('mouseup', () => {
-        isMouseDown = false;
-        processTouchEnd('mouse');
-    });
+    const lanes = document.querySelectorAll('.lane');
+    const currentLane = lanes[laneIndex];
+    if (!currentLane) return;
+
+    const heartKey = currentLane.querySelector('.heart-key');
+    if (heartKey) {
+        heartKey.classList.add('active-press');
+        setTimeout(() => {
+            heartKey.classList.remove('active-press');
+        }, 100);
+    }
+
+    const activeNotes = currentLane.querySelectorAll('.note');
+    if (activeNotes.length === 0) return;
+
+    const targetNote = activeNotes[0];
+    if (!targetNote || !heartKey) return;
+
+    const noteRect = targetNote.getBoundingClientRect();
+    const heartRect = heartKey.getBoundingClientRect();
+
+    const noteCenter = noteRect.top + (noteRect.height / 2);
+    const heartCenter = heartRect.top + (heartRect.height / 2);
+    const distance = Math.abs(noteCenter - heartCenter);
+
+    if (distance <= 40) {
+        targetNote.remove();
+        triggerJudgment('PERFECT');
+    } else if (distance <= 80) {
+        targetNote.remove();
+        triggerJudgment('GOOD');
+    }
 }
 
 function triggerJudgment(type) {
     const el = document.getElementById('judgment-text');
-    if (!el) return;
-
+    
     if (type === 'PERFECT') {
-        el.innerText = 'PERFECT'; el.style.color = '#ff4081';
-        score += 100; combo++; perfectCount++;
+        if (el) {
+            el.innerText = 'PERFECT';
+            el.style.color = '#ff4081';
+            el.style.opacity = '1';
+            setTimeout(() => { el.style.opacity = '0'; }, 200);
+        }
+        score += 100;
+        combo++;
+        perfectCount++;
     } else if (type === 'GOOD') {
-        el.innerText = 'GOOD'; el.style.color = '#ffb800';
-        score += 50; combo++; goodCount++;
+        if (el) {
+            el.innerText = 'GOOD';
+            el.style.color = '#ffb800';
+            el.style.opacity = '1';
+            setTimeout(() => { el.style.opacity = '0'; }, 200);
+        }
+        score += 50;
+        combo++;
+        goodCount++;
     } else {
-        el.innerText = 'MISS'; el.style.color = '#888888';
-        combo = 0; missCount++;
-        if (missCount >= 20) endGame('gameover');
+        if (el) {
+            el.innerText = 'MISS';
+            el.style.color = '#888888';
+            el.style.opacity = '1';
+            setTimeout(() => { el.style.opacity = '0'; }, 200);
+        }
+        combo = 0;
+        missCount++;
+
+        if (missCount >= 20) {
+            endGame('gameover');
+            return;
+        }
     }
 
-    el.style.opacity = '1';
-    setTimeout(() => { el.style.opacity = '0'; }, 200);
     updateHUD();
 }
 
@@ -675,28 +616,42 @@ function updateHUD() {
 
 function endGame(status) {
     isPlaying = false;
-    if (gameAnimFrame) cancelAnimationFrame(gameAnimFrame);
+    clearInterval(gameInterval);
     if (bgm) bgm.pause();
 
     document.getElementById('game-screen').style.display = 'none';
-    document.getElementById('result-title').innerText = status === 'congrats' ? "CONGRATS!" : "GAME OVER";
+    
+    const titleEl = document.getElementById('result-title');
+    if (status === 'congrats') {
+        titleEl.innerText = "CONGRATS!";
+    } else {
+        titleEl.innerText = "GAME OVER";
+    }
+
     document.getElementById('res-score').innerText = score.toLocaleString();
     document.getElementById('res-perfect').innerText = perfectCount;
     document.getElementById('res-good').innerText = goodCount;
     document.getElementById('res-miss').innerText = missCount;
+    
+    const inputEl = document.getElementById('username-input');
+    if (inputEl) inputEl.value = '';
+    
     document.getElementById('result-screen').style.display = 'flex';
 }
 
 // ==========================================
-// 5. FIREBASE SAVE & FETCH LEADERBOARD
+// 4. FIREBASE SAVE & FETCH LEADERBOARD
 // ==========================================
 function saveScoreAndExit() {
     const inputEl = document.getElementById('username-input');
     const username = (inputEl && inputEl.value.trim() !== "") ? inputEl.value.trim() : "Player";
 
     const scoreData = {
-        username: username, score: score,
-        perfect: perfectCount, good: goodCount, miss: missCount,
+        username: username,
+        score: score,
+        perfect: perfectCount,
+        good: goodCount,
+        miss: missCount,
         timestamp: Date.now()
     };
 
@@ -712,11 +667,14 @@ function saveScoreAndExit() {
                 document.getElementById('result-screen').style.display = 'none';
                 toggleLeaderboard(true);
             })
-            .catch(() => {
+            .catch((err) => {
+                console.error("Gagal menyimpan skor ke Firebase:", err);
+                alert("Gagal menyimpan skor. Cek Rules Firebase milikmu.");
                 document.getElementById('result-screen').style.display = 'none';
                 document.getElementById('main-menu').style.display = 'flex';
             });
     } catch(e) {
+        console.error("Error Firebase:", e);
         document.getElementById('result-screen').style.display = 'none';
         document.getElementById('main-menu').style.display = 'flex';
     }
@@ -739,6 +697,7 @@ function toggleLeaderboard(show) {
 function fetchGlobalScores() {
     const listEl = document.getElementById('leaderboard-list');
     if (!listEl) return;
+
     listEl.innerHTML = "<p style='text-align:center;'>Memuat data global...</p>";
 
     if (!isFirebaseReady) {
@@ -749,7 +708,10 @@ function fetchGlobalScores() {
     try {
         firebase.database().ref('leaderboard').once('value', (snapshot) => {
             let dataArr = [];
-            snapshot.forEach(child => { dataArr.push(child.val()); });
+            snapshot.forEach(child => { 
+                dataArr.push(child.val()); 
+            });
+
             dataArr.sort((a, b) => b.score - a.score);
 
             if (dataArr.length === 0) {
@@ -767,12 +729,17 @@ function fetchGlobalScores() {
                 `;
             });
             listEl.innerHTML = html;
+        }, (error) => {
+            console.error("Firebase fetch error:", error);
+            listEl.innerHTML = "<p style='text-align:center; color:red;'>Gagal memuat leaderboard global.</p>";
         });
     } catch(e) {
+        console.error("Exception:", e);
         listEl.innerHTML = "<p style='text-align:center; color:red;'>Terjadi kesalahan koneksi.</p>";
     }
 }
 
+// Jalankan Event Listener saat halaman dimuat
 document.addEventListener('DOMContentLoaded', () => {
     setupTouchEvents();
 });
