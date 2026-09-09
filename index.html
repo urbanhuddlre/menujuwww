@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TUH WWW</title>
     
-    <!-- Firebase App & Database SDK (v8 compat agar simpel) -->
+    <!-- Import Font Poppins dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Firebase App & Database SDK (v8 compat) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
@@ -36,7 +41,8 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            /* Mengganti font bawaan menjadi Poppins */
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             width: 100vw;
@@ -81,7 +87,7 @@
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
-            z-index: 9999 !important; /* Memastikan layar di atas canvas */
+            z-index: 9999 !important;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -114,6 +120,7 @@
             text-align: center;
             position: relative;
             z-index: 10000 !important;
+            font-family: 'Poppins', sans-serif;
         }
 
         .btn:active { transform: scale(0.95); }
@@ -254,6 +261,7 @@
             background: #f8f8fc;
             margin-bottom: 15px;
             pointer-events: auto !important;
+            font-family: 'Poppins', sans-serif;
         }
 
         #username-input:focus {
@@ -327,7 +335,7 @@
 
 <script>
 // ==========================================
-// 1. INISIALISASI FIREBASE
+// 1. INISIALISASI FIREBASE (v8 Format)
 // ==========================================
 const firebaseConfig = {
     apiKey: "AIzaSyD2LJ3NNzgEN7YlyjAFka9Go1l0bqEIIHU",
@@ -338,11 +346,11 @@ const firebaseConfig = {
     messagingSenderId: "589222410670",
     appId: "1:589222410670:web:0efd4918597aad5424b03f",
     measurementId: "G-ZBYCHHXRZ1"
-  };
+};
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+// Inisialisasi Firebase v8 yang benar
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
 }
 
 // ==========================================
@@ -448,6 +456,7 @@ let beatmapData = [
     { timestamp: 27000, lane: 0 },
     { timestamp: 28000, lane: 3 }
 ];
+
 // ==========================================
 // 3. FUNGSI LOGIKA GAME
 // ==========================================
