@@ -194,7 +194,7 @@
             background: #adc642;
             border-radius: 50%;
             box-shadow: 0 0 10px rgba(233, 85, 0, 0.5);
-            animation: fall 1.2s linear forwards;
+            animation: fall 2.2s linear forwards;
         }
 
         @keyframes fall {
@@ -571,7 +571,7 @@ function triggerJudgment(type) {
     if (type === 'PERFECT') {
         if (el) {
             el.innerText = 'PERFECT';
-            el.style.color = '#e95500';
+            el.style.color = '#ff4081';
             el.style.opacity = '1';
             setTimeout(() => { el.style.opacity = '0'; }, 200);
         }
